@@ -1,6 +1,6 @@
 {
-	"look_back" : 7,
-	"n_features" : 4,
+	"look_back" : 60,
+	"n_features" : 74,
 	"horizon" : 7,
 
 	"n_layers_init" : 2,
