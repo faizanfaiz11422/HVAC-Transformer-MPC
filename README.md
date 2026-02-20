@@ -25,10 +25,11 @@ The implemented architecture deviates from standard RNNs/LSTMs by using self-att
 ## 📁 Repository Structure
 ```bash
 ├── data/                   # Dataset files (Environmental sensors, HVAC load)
+│   └── Sample_Data.csv     # Sample Data from original dataset
 ├── models/
-│   ├── transformers.py     # Main Transformer class implementation
-│   └── utils.py            # Custom metrics (sMAPE, RMSE) and data processing
-├── checkpoints/            # Saved .hdf5 model weights
+│   ├── CNN.py              # Main CNN_LSTM class implementation
+│   ├── RNN.py              # Main RNN class implementation
+│   └── transformers.py     # Main Transformer class implementation
+├── utils.py                # Custom metrics (sMAPE, RMSE) and data processing
 ├── parameters.json         # Model hyperparameters (Look-back, heads, dropout)
 ├── requirements.txt        # Python dependencies
-└── main.ipynb              # Training and evaluation notebook
