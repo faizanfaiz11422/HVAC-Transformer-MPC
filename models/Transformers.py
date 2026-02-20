@@ -28,7 +28,7 @@ class Transformer(object):
         """ Initialization of the object
         """
 
-        with open("/kaggle/input/transformer/parameters.json") as f:
+        with open("/content/HVAC-Transformer-MPC/parameters.json") as f:
             parameters = json.load(f)
 
 
