@@ -26,7 +26,7 @@ def smape(y_true, y_pred):
     #return 100 * K.mean(K.abs(y_pred - y_true) / (K.abs(y_pred) + K.abs(y_true)))#, axis=-1)
 
 def rmse(y_true, y_pred):
-    return K.sqrt(K.mean(K.square(y_pred - y_true)))
+    return tf.sqrt(tf.reduce_mean(tf.square(y_pred - y_true)))
 
 
 def mae(y_true, y_pred):
