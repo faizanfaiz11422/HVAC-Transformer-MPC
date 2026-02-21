@@ -145,20 +145,13 @@ class Transformer(object):
                              #callbacks=[PlotLossesKeras(), early_stopping_monitor, checkpoint])
 
         return callback_history
-
     def evaluate(self, X_test, y_test):
-        """ Evaluating the network
-        :param X_test: test feature vectors [#batch,#number_of_timesteps,#number_of_features]
-        :param y_test: test target vectors
-        :return: _, rmse_result, mae_result, smape_result, r2_result, y_pred
-        """
+        """ Evaluating the network """
 
-        # 1. Get the model predictions
+        # 1. Get predictions: Shape will be (276, 7)
         y_pred = self.model.predict(X_test)
 
-        # 2. Get the official metrics from Keras evaluate
-        # Based on your compile: metrics=[rmse, 'mae', smape, coeff_determination]
-        # eval_results will be: [loss, rmse, mae, smape, coeff_determination]
+        # 2. Get Keras metrics
         eval_results = self.model.evaluate(X_test, y_test)
         
         loss_val = eval_results[0]
@@ -166,21 +159,21 @@ class Transformer(object):
         mae_result = eval_results[2]
         smape_result = eval_results[3]
 
-        # 3. Fix the R2 Score length mismatch
-        # We use np.ravel() to ensure both are 1D arrays of the exact same length.
-        # If your y_test is (Samples, 7) and y_pred is (Samples, 7), 
-        # both will flatten to Samples * 7.
-        y_true_flat = np.ravel(y_test)
+        # 3. Flatten predictions to 1D (1932 elements)
         y_pred_flat = np.ravel(y_pred)
+        
+        # 4. Flatten ground truth to 1D (1932 elements)
+        y_true_flat = np.ravel(y_test)
 
-        # Check for consistency before calculating R2 to avoid crashing
-        if len(y_true_flat) == len(y_pred_flat):
-            r2_result = r2_score(y_true_flat, y_pred_flat)
-        else:
-            # If they still don't match, we force y_true to match y_pred's size
-            # This can happen if y_test wasn't properly windowed to match the model's output
-            print(f"Warning: Shape mismatch. y_true:{len(y_true_flat)}, y_pred:{len(y_pred_flat)}")
-            r2_result = r2_score(y_true_flat[:len(y_pred_flat)], y_pred_flat)
+        # DEBUG: Print shapes to console to verify
+        print(f"Flattened shapes - Truth: {y_true_flat.shape}, Pred: {y_pred_flat.shape}")
+
+        # Calculate R2 on the aligned 1D arrays
+        # If there is still a slight mismatch, we slice to the smaller length
+        min_len = min(len(y_true_flat), len(y_pred_flat))
+        r2_result = r2_score(y_true_flat[:min_len], y_pred_flat[:min_len])
+
+        return loss_val, rmse_result, mae_result, smape_result, r2_result, y_pred
 
         return loss_val, rmse_result, mae_result, smape_result, r2_result, y_pred
 
