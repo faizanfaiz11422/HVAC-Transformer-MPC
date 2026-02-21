@@ -1,6 +1,6 @@
 # HVAC Transformer-MPC: Building Energy & Indoor Environmental Quality Forecasting
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YOUR_USERNAME/HVAC-Transformer-MPC/blob/main/main.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1grAelzrOW6c0FLXvb-b-dvd3-CCuzI7m#scrollTo=biwzdDbNjhjp)
 
 This repository provides an implementation of a **Transformer-based Deep Learning** architecture for indoor temperature prediction and HVAC energy optimization, following the methodology established by Faiz et al.
 
@@ -51,16 +51,27 @@ The core utilizes a Multi-Head Attention mechanism to capture complex temporal d
    ```bash
    git clone [https://github.com/YOUR_USERNAME/HVAC-Transformer-MPC.git](https://github.com/YOUR_USERNAME/HVAC-Transformer-MPC.git)
    Setup Environment:
+   ```
 
 2. **Install dependencies via requirements.txt.**
-   ```bash
    Note: For Python 3.12+, set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python.
 
 3. **Run in Colab:**
-   ```bash
    Click the "Open in Colab" badge at the top to start training immediately.
 
+## 🎓 Citation
 
+If you use this work, please cite the original paper:
+   ```bash
+   @article{FAIZ2023381,
+   title = {Energy modeling and predictive control of environmental quality for building energy management using machine learning},
+   journal = {Energy for Sustainable Development},
+   volume = {74},
+   pages = {381-395},
+   year = {2023},
+   author = {Muhammad Faizan Faiz and Muhammad Sajid and Sara Ali and Kashif Javed and Yasar Ayaz}
+   }
+```
 
 ## 📁 Repository Structure
 ```bash
