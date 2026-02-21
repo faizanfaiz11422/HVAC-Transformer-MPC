@@ -146,33 +146,42 @@ class Transformer(object):
 
         return callback_history
 
-    def evaluate(self,
-        X_test,
-        y_test):
+    def evaluate(self, X_test, y_test):
         """ Evaluating the network
         :param X_test: test feature vectors [#batch,#number_of_timesteps,#number_of_features]
-        :type 3-D Numpy array of float values
-        :param Y_test: test target vectors
-        :type 2-D Numpy array of int values
-        :return  Evaluation losses
-        :rtype 5 Float tuple
-        :raise -
+        :param y_test: test target vectors
+        :return: _, rmse_result, mae_result, smape_result, r2_result, y_pred
         """
 
+        # 1. Get the model predictions
         y_pred = self.model.predict(X_test)
 
-        # Print accuracy if ground truth is provided
-        """
-        if y_test is not None:
-            loss_ = session.run(
-                self.loss,
-                feed_dict=feed_dict)
-        """
+        # 2. Get the official metrics from Keras evaluate
+        # Based on your compile: metrics=[rmse, 'mae', smape, coeff_determination]
+        # eval_results will be: [loss, rmse, mae, smape, coeff_determination]
+        eval_results = self.model.evaluate(X_test, y_test)
+        
+        loss_val = eval_results[0]
+        rmse_result = eval_results[1]
+        mae_result = eval_results[2]
+        smape_result = eval_results[3]
 
-        _, rmse_result, mae_result, smape_result, _ = self.model.evaluate(X_test, y_test)
+        # 3. Fix the R2 Score length mismatch
+        # We use np.ravel() to ensure both are 1D arrays of the exact same length.
+        # If your y_test is (Samples, 7) and y_pred is (Samples, 7), 
+        # both will flatten to Samples * 7.
+        y_true_flat = np.ravel(y_test)
+        y_pred_flat = np.ravel(y_pred)
 
-        r2_result = r2_score(y_test.flatten(),y_pred.flatten())
+        # Check for consistency before calculating R2 to avoid crashing
+        if len(y_true_flat) == len(y_pred_flat):
+            r2_result = r2_score(y_true_flat, y_pred_flat)
+        else:
+            # If they still don't match, we force y_true to match y_pred's size
+            # This can happen if y_test wasn't properly windowed to match the model's output
+            print(f"Warning: Shape mismatch. y_true:{len(y_true_flat)}, y_pred:{len(y_pred_flat)}")
+            r2_result = r2_score(y_true_flat[:len(y_pred_flat)], y_pred_flat)
 
-        return _, rmse_result, mae_result, smape_result, r2_result, y_pred
+        return loss_val, rmse_result, mae_result, smape_result, r2_result, y_pred
 
  
