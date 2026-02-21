@@ -2,7 +2,7 @@ from datetime import datetime
 from time import time
 import json
 import logging
-
+import numpy as np
 import tensorflow as tf
 import keras
 from keras import layers
