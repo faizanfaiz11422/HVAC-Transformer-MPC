@@ -24,7 +24,7 @@ The following results highlight the efficiency of the Transformer-based Model Pr
 ### 2. Multi-Horizon Forecasting Performance
 The model demonstrates high accuracy across various forecasting horizons (1, 15, 30, and 60 minutes).
 
-![Transformer Forecasting Graphs](./graphs_transformer.png)
+![Transformer Forecasting Graphs](./graphs transformer.png)
 *Figure 2: Comparison between Predicted and Actual values across multiple forecasting horizons.*
 
 ### 3. Occupant Comfort & Air Quality
