@@ -1,24 +1,64 @@
 # HVAC Transformer-MPC: Building Energy & Indoor Environmental Quality Forecasting
 
-This repository contains the official implementation of the **Transformer-based Deep Learning** architecture for predicting indoor temperature and optimizing HVAC energy consumption, as described in the paper: 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YOUR_USERNAME/HVAC-Transformer-MPC/blob/main/main.ipynb)
 
-> **"Energy modeling and predictive control of environmental quality for building energy management using machine learning"** > *Published in Energy for Sustainable Development, Vol. 74 (2023).*
+This repository provides an implementation of a **Transformer-based Deep Learning** architecture for indoor temperature prediction and HVAC energy optimization, following the methodology established by Faiz et al.
 
 ---
 
-## 📖 Overview
-Heating, Ventilation, and Air Conditioning (HVAC) systems are responsible for significant global energy consumption. This project implements a high-performance **Transformer-Encoder** model to forecast indoor environmental parameters. By accurately predicting temperature, the system enables **Model Predictive Control (MPC)** to maintain occupant comfort while reducing energy usage by up to **50%**.
+## 📋 Methodology Overview
+The project follows a structured pipeline from data initialization to real-time evaluation for model predictive control.
 
+![Project Flowchart](./flowchart.png)
+*Figure 1: System architecture encompassing Data Initialization, Model Training, and Evaluation phases.*
 
+---
+
+## 📊 Key Experimental Results (Faiz et al., 2023)
+The following results highlight the efficiency of the Transformer-based Model Predictive Control (MPC) framework in real-world building management scenarios:
+
+### 1. Energy Efficiency
+* **50.98% Energy Reduction:** HVAC energy consumption was reduced from **42.34 kWh** (baseline) to **20.75 kWh**.
+* **Cost Optimization:** Significant decrease in operational expenses while maintaining strict indoor environmental quality (IEQ) standards.
+
+### 2. Multi-Horizon Forecasting Performance
+The model demonstrates high accuracy across various forecasting horizons (1, 15, 30, and 60 minutes).
+
+![Transformer Forecasting Graphs](./graphs_transformer.png)
+*Figure 2: Comparison between Predicted and Actual values across multiple forecasting horizons.*
+
+### 3. Occupant Comfort & Air Quality
+* **Thermal Comfort:** Maintained the Predicted Mean Vote (PMV) within the **-0.5 to +0.5** range (ASHRAE Standard 55).
+* **Air Quality:** CO2 levels consistently kept below **800 ppm**.
+
+---
 
 ## 🏗️ Model Architecture
-The implemented architecture deviates from standard RNNs/LSTMs by using self-attention mechanisms to capture long-range dependencies in multivariate time-series data.
+The core utilizes a Multi-Head Attention mechanism to capture complex temporal dependencies in environmental sensor data.
 
-- **Look-back Window:** 60 minutes of historical data.
-- **Encoder Blocks:** 4 Transformer layers.
-- **Attention Heads:** 8 Multi-head attention units.
-- **Feed-Forward Network:** 1D Convolutional layers (Kernel size = 1) to maintain spatial-temporal features.
-- **Output:** Multi-horizon forecasting (1, 15, 30, and 60 minutes).
+| Component | Specification |
+| :--- | :--- |
+| **Look-back Window** | 60 Minutes |
+| **Attention Heads** | 8 |
+| **Encoder Blocks** | 4 |
+| **Optimizer** | Adam (LR: 0.001) |
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the Repo:**
+   ```bash
+   git clone [https://github.com/YOUR_USERNAME/HVAC-Transformer-MPC.git](https://github.com/YOUR_USERNAME/HVAC-Transformer-MPC.git)
+   Setup Environment:
+
+2. **Install dependencies via requirements.txt.**
+   ```bash
+   Note: For Python 3.12+, set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python.
+
+3. **Run in Colab:**
+   ```bash
+   Click the "Open in Colab" badge at the top to start training immediately.
 
 
 
